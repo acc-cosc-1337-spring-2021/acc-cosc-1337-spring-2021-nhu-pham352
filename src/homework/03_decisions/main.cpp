@@ -29,30 +29,30 @@ int main()
 	string letter_grade;
 	int credit_hours, sum_credit_hours = 0, sum_credit_points = 0;
 
-	cout << "Enter letter grade: ";
+	cout << "Enter letter grade: \n";
 	cin >> letter_grade;
-	cout << "Enter credit hours: ";
+	cout << "Enter credit hours: \n";
 	cin >> credit_hours;
 	sum_credit_points += get_grade_points(letter_grade) * credit_hours;
 	sum_credit_hours += credit_hours;
 
-	cout << "Enter letter grade: ";
+	cout << "\nEnter letter grade: ";
 	cin >> letter_grade;
-	cout << "Enter credit hours: ";
+	cout << "\nEnter credit hours: ";
 	cin >> credit_hours;
 	sum_credit_points += get_grade_points(letter_grade)  * credit_hours;
 	sum_credit_hours += credit_hours;
 
-	cout << "Enter letter grade: ";
+	cout << "\nEnter letter grade: ";
 	cin >> letter_grade;
-	cout << "Enter credit hours: ";
+	cout << "\nEnter credit hours: ";
 	cin >> credit_hours;
 	sum_credit_points += get_grade_points(letter_grade)  * credit_hours;
 	sum_credit_hours += credit_hours;
 
 
 	double gpa = calculate_gpa(sum_credit_hours, sum_credit_points);
-	cout << "GPA: " << gpa;
+	cout << "\nGPA: " << gpa;
 
 	return 0;
 }
