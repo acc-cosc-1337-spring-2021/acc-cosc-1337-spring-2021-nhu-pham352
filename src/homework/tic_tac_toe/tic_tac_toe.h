@@ -13,11 +13,15 @@ class TicTacToe
         void mark_board(int position);
         void display_board() const;
         string get_player() const{return player;}
-        string get_winner() const{return winner;} // Homework 7
+        string get_winner() const{return winner;}; // Homework 7
+        friend std::ostream& operator<<(std::ostream& out, const TicTacToe& game);
+        friend std::ostream& operator>>(std::istream& in, TicTacToe& game);
+
+
 
     private:
         void set_next_player();
-        bool check_board_full();
+        bool check_board_full()const;
         void clear_board();
         // Homework 7
         bool check_column_win();

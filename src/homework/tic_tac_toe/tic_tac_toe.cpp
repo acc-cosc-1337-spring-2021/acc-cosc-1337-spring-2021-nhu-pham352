@@ -8,17 +8,8 @@ using std::string;  using std::cout;    using std::cin;
 bool TicTacToe::game_over()
 {
     if (check_column_win() || check_row_win() || check_diagonal_win())
-    {
-        set_winner();
-        return true;
-    }
-    else if (check_board_full())
-    {
-        winner = "C";
-        return true;
-    }
+    clear_board();
 
-    return false;
 }
 
 void TicTacToe::start_game(string first_player)
@@ -33,24 +24,44 @@ void TicTacToe::mark_board(int position)
     set_next_player();
 }
 
-void TicTacToe::display_board() const
-{
-    cout << pegs[0] << " | " << pegs[1] << " | " << pegs[2] << " | " << "\n";
-    cout << pegs[3] << " | " << pegs[4] << " | " << pegs[5] << " | " << "\n";
-    cout << pegs[6] << " | " << pegs[7] << " | " << pegs[8] << " | " << "\n";
-}
 
 void TicTacToe::set_next_player()
 {
-    if (player == "X")
-    {
-        player = "O";
-    }
-    else
-    {
-        player = "X";
-    }
+    if (player == "X")}
+    return false;
+
 }
+std::ostream& operator<<(std::ostream& out, const TicTacToe& game)
+{
+    out<<"Winner: " << game.get_winner() << "\n";
+    for (std::size_t i = 0; i < game.pegs.size(); i += 3)
+    {
+        out<< game.pegs[i]<< "|"<<game.pegs[i+1]<<"|"<< game.pegs[i+2]<<"\n";
+    }
+    out<<"\n";
+    return out;
+}
+
+std::istream& operator>>(std::istream& in, TicTacToe& game)
+{
+    int position;
+    cout<< "Enter position from 1 to 9: ";
+    in >> position;
+
+    while(!in.good() && (position <1 || position >9))
+    {
+        in.clear();
+        in.ignore(5, '\n');
+
+        cout<<"enter position from 1 to 9: ";
+        in >> position;
+    }
+
+game.mark_board(position);
+
+return in;
+}
+
 
 bool TicTacToe::check_board_full()
 {
@@ -102,7 +113,7 @@ bool TicTacToe::check_row_win()
 {
     for (std::size_t i=0; i<9; i += 3)
     {
-        if (pegs[i] =  pegs[i+1] && pegs[i+1] == pegs[i+2] && pegs[i] != " ")
+        if (pegs[i] ==  pegs[i+1] && pegs[i+1] == pegs[i+2] && pegs[i] != " ")
         {
             return true;
         }

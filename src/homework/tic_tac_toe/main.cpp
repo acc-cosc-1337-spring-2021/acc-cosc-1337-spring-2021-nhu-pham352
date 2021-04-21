@@ -1,6 +1,8 @@
 #include <iostream>
 #include"tic_tac_toe.h"
 #include<limits>
+#include"tic_tac_toe_manager.h"
+
 
 
 using std::cout;
@@ -8,33 +10,43 @@ using std::cin;
 
 int main() 
 {
-	char play_again;
-	TicTacToe game;
-	std::string first_player;
+	TicTacToeManager manager;
+	std::string player;
 
-	cout<<"Please enter either X or O to choose your player: \n";
-	cin>>first_player;
-
-	game.start_game(first_player);
-
-	do
-
+	char option;
+	do 
 	{
-		int position;
-		cout<<"Please enter a position between 1 to 9: \n";
-		cin>>position;
+		TicTacToe tic_tac_toe;
+		while(player != "X" && player != "x" && player != "O" && player !="o")
+		{
+			cout<"Please choose X or O for your player: ";
 
-		game.mark_board(position);
-		game.display_board();
+			do 
+			{
+				cin >> tic_tac_toe;
+				cout << tic_tac_toe;
+			}while (tic_tac_toe.game_over() == false);
 
-		first_player = "";
-		cout <<"Game Over!!" << "\n";
-		cout << "The winner is " << game.get_winner() <<"\n";
+			player = "";
+			cout<< "Game over!!";
+			cout<< "\n The winner is: "<<tic_tac_toe.get_winner()<<"\n";
 
-		cout<<"Please input Y or y to play again: \n";
-		cin>>play_again;
-	}
-	while (play_again == 'Y' || play_again == 'y');
+			manager.save_game(tic_tac_toe);
 
+			int x_wins;
+			int o_wins;
+			int ties;
+			manager.get_winner_total(x_wins, o_wins, ties);
+
+			cout<< "X wins: "<<x_wins<<"\n";
+			cout<< "O wins: "<<o_wins<<"\n";
+			cout<< "Ties: "<<ties<<"\n";
+
+			cout<<"Enter y or Y to continue: ";
+			cin>>option;
+
+		}while (option == 'Y' || option == 'y');
+
+		cout<<manager;
 		return 0;
-}
+	}
