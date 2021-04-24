@@ -27,16 +27,22 @@ void TicTacToe::mark_board(int position)
 
 void TicTacToe::set_next_player()
 {
-    if (player == "X")}
-    return false;
-
+    if (player == "X")
+    {
+        return false;
+    }
 }
 std::ostream& operator<<(std::ostream& out, const TicTacToe& game)
 {
     out<<"Winner: " << game.get_winner() << "\n";
-    for (std::size_t i = 0; i < game.pegs.size(); i += 3)
+    for(std::size_t i=0; i<game.pegs.size(); i+= sqrt(game.pegs.size()))
     {
-        out<< game.pegs[i]<< "|"<<game.pegs[i+1]<<"|"<< game.pegs[i+2]<<"\n";
+        out<<game.pegs[i] << "|" << game.pegs[i+1] << "|" << game.pegs[i+2];
+        if (game.pegs.size() == 16)
+        {
+            out<<"|"<<game.pegs[i+3];
+        }
+        out<< "\n";
     }
     out<<"\n";
     return out;
@@ -44,16 +50,16 @@ std::ostream& operator<<(std::ostream& out, const TicTacToe& game)
 
 std::istream& operator>>(std::istream& in, TicTacToe& game)
 {
-    int position;
-    cout<< "Enter position from 1 to 9: ";
+    unsigned int position;
+    cout<< "Enter position from 1 to "<<game.pegs.size() ;
     in >> position;
 
-    while(!in.good() && (position <1 || position >9))
+    while(!in.good() || (position <1 || position >game.pegs.size()))
     {
         in.clear();
         in.ignore(5, '\n');
 
-        cout<<"enter position from 1 to 9: ";
+        cout<<"enter position from 1 to "<<game.pegs.size();
         in >> position;
     }
 
