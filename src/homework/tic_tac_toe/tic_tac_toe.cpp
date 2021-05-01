@@ -3,7 +3,7 @@
 #include<iostream>
 #include<string>
 
-using std::string;  using std::cout;    using std::cin;
+using std::string;  using std::cout;    using std::cin; using std::vector;
 
 bool TicTacToe::game_over()
 {
@@ -27,10 +27,14 @@ void TicTacToe::mark_board(int position)
 
 void TicTacToe::set_next_player()
 {
-    if (player == "X")
+     if(player == "x")
     {
-        return false;
+        player = "o";
     }
+    else
+    {
+        player = "x";
+    }  
 }
 std::ostream& operator<<(std::ostream& out, const TicTacToe& game)
 {
@@ -50,26 +54,63 @@ std::ostream& operator<<(std::ostream& out, const TicTacToe& game)
 
 std::istream& operator>>(std::istream& in, TicTacToe& game)
 {
-    unsigned int position;
-    cout<< "Enter position from 1 to "<<game.pegs.size() ;
-    in >> position;
-
-    while(!in.good() || (position <1 || position >game.pegs.size()))
+    if(game.pegs.size() == 9)
     {
-        in.clear();
-        in.ignore(5, '\n');
+        int position;
+        
+        cout << "Choose your position (1-9): ";
 
-        cout<<"enter position from 1 to "<<game.pegs.size();
-        in >> position;
+        while (!(in >> position))
+        {
+            cout << "Invalid entry! Please enter a number (1-9): ";
+            in.clear();
+            in.ignore(123, '\n');
+        }
+
+        while (position <= 0 || position > 9)
+        {
+            cout<<"Invalid entry! Position must be between 1 & 9 \n";
+            cout<<"Please enter your position (1-9): ";
+            in>>position;
+        }
+
+        if(position >= 1 && position <= 9)
+        {
+	        game.mark_board(position);
+        }
     }
+    else if(game.pegs.size() == 16)
+    {
+        int position;
+        
+        cout<<"Choose your position (1-16): ";
 
-game.mark_board(position);
+        while (!(in>>position))
+        {
+            cout<<"Invalid entry! Please enter a number (1-16): ";
+            in.clear();
+            in.ignore(123, '\n');
+        }
 
-return in;
+        while (position <= 0 || position > 16)
+        {
+            cout<<"Invalid entry! Position must be between 1 & 16 \n";
+            cout<<"Choose your position (1-16): ";
+            in>>position;
+        }
+        if(position >=1 && position <= 16)
+        {
+	        game.mark_board(position);
+        }
+    }
+    
+    
+
+    return in;
 }
 
 
-bool TicTacToe::check_board_full()
+bool TicTacToe::check_board_full() const
 {
 for(auto peg: pegs)
 {
